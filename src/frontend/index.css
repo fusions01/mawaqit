@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Islamic Green / Gold theme fonts */
+@font-face {
+  font-family: "Fraunces";
+  src: url("/assets/fonts/Fraunces.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Outfit";
+  src: url("/assets/fonts/Outfit.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+
+    /* Islamic Deep Green / Gold Palette */
+    --background: 0.12 0.04 155;
+    --foreground: 0.95 0.02 120;
+    --card: 0.16 0.05 155;
+    --card-foreground: 0.95 0.02 120;
+    --popover: 0.14 0.04 155;
+    --popover-foreground: 0.95 0.02 120;
+    --primary: 0.65 0.14 155;
+    --primary-foreground: 0.08 0.02 155;
+    --secondary: 0.20 0.06 155;
+    --secondary-foreground: 0.90 0.03 120;
+    --muted: 0.18 0.04 155;
+    --muted-foreground: 0.60 0.05 140;
+    --accent: 0.72 0.16 85;
+    --accent-foreground: 0.10 0.03 85;
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+    --border: 0.25 0.05 150;
+    --input: 0.22 0.05 150;
+    --ring: 0.65 0.14 155;
+
+    /* Chart */
+    --chart-1: 0.65 0.14 155;
+    --chart-2: 0.72 0.16 85;
+    --chart-3: 0.55 0.12 155;
+    --chart-4: 0.80 0.12 100;
+    --chart-5: 0.50 0.10 170;
+
+    /* Sidebar */
+    --sidebar: 0.10 0.04 155;
+    --sidebar-foreground: 0.95 0.02 120;
+    --sidebar-primary: 0.65 0.14 155;
+    --sidebar-primary-foreground: 0.08 0.02 155;
+    --sidebar-accent: 0.20 0.06 155;
+    --sidebar-accent-foreground: 0.90 0.03 120;
+    --sidebar-border: 0.25 0.05 150;
+    --sidebar-ring: 0.65 0.14 155;
+
+    /* Islamic custom tokens */
+    --islamic-green: 0.42 0.14 155;
+    --islamic-green-light: 0.55 0.16 155;
+    --islamic-gold: 0.72 0.16 85;
+    --islamic-gold-light: 0.82 0.14 85;
+    --islamic-dark: 0.10 0.04 155;
+    --islamic-surface: 0.16 0.06 155;
+    --islamic-surface-2: 0.20 0.06 155;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Outfit", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+}
+
+/* Geometric star pattern background */
+.islamic-pattern-bg {
+  background-color: oklch(var(--background));
+  background-image: 
+    radial-gradient(circle at 25% 25%, oklch(0.20 0.06 155 / 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, oklch(0.18 0.05 150 / 0.3) 0%, transparent 50%);
+}
+
+/* Gold shimmer animation */
+@keyframes gold-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.gold-text {
+  color: oklch(var(--islamic-gold));
+}
+
+.gold-gradient-text {
+  background: linear-gradient(
+    90deg,
+    oklch(var(--islamic-gold)) 0%,
+    oklch(var(--islamic-gold-light)) 50%,
+    oklch(var(--islamic-gold)) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% auto;
+  animation: gold-shimmer 3s linear infinite;
+}
+
+/* Prayer time card glow on active */
+.prayer-active {
+  box-shadow: 0 0 20px oklch(var(--islamic-green) / 0.4), 0 0 40px oklch(var(--islamic-gold) / 0.2);
+  border-color: oklch(var(--islamic-gold) / 0.6) !important;
+}
+
+/* Compass rose */
+.compass-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Tasbih counter ring */
+.tasbih-ring {
+  filter: drop-shadow(0 0 12px oklch(var(--islamic-green) / 0.6));
+}
+
+/* Scroll hide */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Bottom nav safe area */
+.bottom-nav {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Arabic text */
+.arabic-text {
+  font-family: "Fraunces", serif;
+  direction: rtl;
+}
+
+/* Geometric border decoration */
+.geo-border {
+  border: 1px solid oklch(var(--islamic-gold) / 0.3);
+  position: relative;
+}
+.geo-border::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 1px solid oklch(var(--islamic-green) / 0.2);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Pulse animation for next prayer */
+@keyframes gentle-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.pulse-gentle {
+  animation: gentle-pulse 2s ease-in-out infinite;
+}
+
+/* Countdown number flip */
+@keyframes flip-in {
+  from { transform: rotateX(90deg); opacity: 0; }
+  to { transform: rotateX(0deg); opacity: 1; }
+}
+.flip-in {
+  animation: flip-in 0.2s ease-out;
+}
